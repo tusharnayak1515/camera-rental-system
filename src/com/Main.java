@@ -109,8 +109,13 @@ public class Main {
                     if(option == 1) {
                         System.out.print("ENTER THE AMOUNT (INR) - ");
                         double amount = sc.nextDouble();
-                        user.addToWallet(amount);
-                        System.out.println("YOUR WALLET BALANCE UPDATED SUCCESSFULLY. CURRENT WALLET BALANCE - INR."+user.getWalletBalance());
+                        if(amount <= 0) {
+                            System.out.println("AMOUNT MUST BE GREATER THAN 0");
+                        }
+                        else {
+                            user.addToWallet(amount);
+                            System.out.println("YOUR WALLET BALANCE UPDATED SUCCESSFULLY. CURRENT WALLET BALANCE - INR."+user.getWalletBalance());
+                        }
                         run(user);
                     }
                     else if(option == 2) {

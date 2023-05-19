@@ -11,8 +11,7 @@ public class CameraOperations {
 		return "YOUR CAMERA HAS BEEN SUCCESSFULLY ADDED TO THE LIST.";
 	}
 
-    public String removeCamera(int cameraId)
-	{
+    public String removeCamera(int cameraId) {
         Camera camera = new Camera();
         for(Camera obj:cameraList) {
             if(obj.getCameraId() == cameraId) {
@@ -28,8 +27,7 @@ public class CameraOperations {
         return "CAMERA SUCCESSFULLY REMOVED FROM THE LIST.";
 	} 
 
-    public void RentCamera(User user,int cameraId)
-    {
+    public void RentCamera(User user,int cameraId) {
         Camera camera = new Camera();
         for(Camera obj:cameraList) {
             if(obj.getCameraId() == cameraId) {
@@ -37,20 +35,25 @@ public class CameraOperations {
             }
         }
 
-        if(camera.getStatus().equals("Rented")) {
-            System.out.println("CAMERA IS ALREADY RENTED.");
-        }
-        else {
-            double balance = user.getWalletBalance();
-            if(balance >= camera.getRent()) {
-                camera.setStatus("Rented");
-                user.setWalletBalance(balance-camera.getRent());
-                System.out.println("YOUR TRANSACTION FOR CAMERA - "+camera.getBrand()+" "+camera.getModel()+" with rent INR."+camera.getRent()+" HAS SUCCESSFULLY COMPLETED.");
+        try {
+            if(camera.getStatus().equals("Rented")) {
+                System.out.println("CAMERA IS ALREADY RENTED.");
             }
             else {
-                System.out.println("ERROR: TRANSACTION FAILED DUE TO INSUFFICIENT WALLET BALANCE. PLEASE DEPOSIT THE AMOUNT TO YOUR WALLET.");
+                double balance = user.getWalletBalance();
+                if(balance >= camera.getRent()) {
+                    camera.setStatus("Rented");
+                    user.setWalletBalance(balance-camera.getRent());
+                    System.out.println("YOUR TRANSACTION FOR CAMERA - "+camera.getBrand()+" "+camera.getModel()+" with rent INR."+camera.getRent()+" HAS SUCCESSFULLY COMPLETED.");
+                }
+                else {
+                    System.out.println("ERROR: TRANSACTION FAILED DUE TO INSUFFICIENT WALLET BALANCE. PLEASE DEPOSIT THE AMOUNT TO YOUR WALLET.");
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println("INVALID CAMERA ID.");
         }
+
     }
 
     public void displayAllCameras() {
