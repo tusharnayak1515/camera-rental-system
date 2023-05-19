@@ -13,29 +13,39 @@ public class CameraOperations {
 
     public String removeCamera(int cameraId) {
         Camera camera = new Camera();
-        for(Camera obj:cameraList) {
-            if(obj.getCameraId() == cameraId) {
-                camera = obj;
+        try {
+            int index = getCameraIndex(cameraList, 0,cameraList.size(), cameraId);
+            camera = cameraList.get(index);
+            cameraList.remove(camera);
+            Collections.sort(cameraList);
+            if(camera.getStatus().equals("Rented")) {
+                return "CAMERA CANNOT BE REMOVED AS IT IS RENTED.";
             }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("INVALID CAMERA ID.");
         }
-
-        if(camera.getStatus().equals("Rented")) {
-            return "CAMERA CANNOT BE REMOVED AS IT IS RENTED.";
-        }
-        cameraList.remove(camera);
-        Collections.sort(cameraList);;
         return "CAMERA SUCCESSFULLY REMOVED FROM THE LIST.";
-	} 
+	}
+    
+    public int getCameraIndex(ArrayList<Camera> list, int low, int high, int cameraId) {
+        if(low<=high) {
+            int mid = low + (high-low)/2;
+            if(cameraId == list.get(mid).getCameraId()) {
+                return mid;
+            }
+            if(cameraId < list.get(mid).getCameraId()) {
+                return getCameraIndex(list, low, mid-1, cameraId);
+            }
+            return getCameraIndex(list, mid+1, high, cameraId);
+        }
+        return -1;
+    }
 
     public void RentCamera(User user,int cameraId) {
         Camera camera = new Camera();
-        for(Camera obj:cameraList) {
-            if(obj.getCameraId() == cameraId) {
-                camera = obj;
-            }
-        }
-
         try {
+            int index = getCameraIndex(cameraList, 0,cameraList.size(), cameraId);
+            camera = cameraList.get(index);
             if(camera.getStatus().equals("Rented")) {
                 System.out.println("CAMERA IS ALREADY RENTED.");
             }
@@ -50,7 +60,7 @@ public class CameraOperations {
                     System.out.println("ERROR: TRANSACTION FAILED DUE TO INSUFFICIENT WALLET BALANCE. PLEASE DEPOSIT THE AMOUNT TO YOUR WALLET.");
                 }
             }
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("INVALID CAMERA ID.");
         }
 
