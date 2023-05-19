@@ -1,3 +1,4 @@
+package com;
 public class Camera implements Comparable<Camera> {
     private int cameraId;
     private String brand;
