@@ -85,7 +85,8 @@ public class Main {
                     CameraOperations obj = new CameraOperations();
                     if (CameraOperations.cameraList.size() == 0) {
                         System.out.println("No data present at this moment.");
-                    } else {
+                    } 
+                    else {
                         System.out.println("FOLLOWING IS THE LIST OF AVAILABLE CAMERAS");
                         obj.displayAllCameras("Available");
                         System.out.print("ENTER THE CAMERA ID YOU WANT TO RENT - ");
@@ -112,16 +113,17 @@ public class Main {
                         double amount = sc.nextDouble();
                         if (amount <= 0) {
                             System.out.println("AMOUNT MUST BE GREATER THAN 0");
-                        } else {
+                        } 
+                        else {
                             user.addToWallet(amount);
-                            System.out.println(
-                                    "YOUR WALLET BALANCE UPDATED SUCCESSFULLY. CURRENT WALLET BALANCE - INR."
-                                            + user.getWalletBalance());
+                            System.out.println("YOUR WALLET BALANCE UPDATED SUCCESSFULLY. CURRENT WALLET BALANCE - INR."+user.getWalletBalance());
                         }
                         run(user);
-                    } else if (option == 2) {
+                    } 
+                    else if (option == 2) {
                         run(user);
-                    } else {
+                    } 
+                    else {
                         System.out.println("INVALID CHOICE");
                         run(user);
                     }
