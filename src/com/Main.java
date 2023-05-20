@@ -6,8 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static CameraOperations co = new CameraOperations();
     public static Scanner sc = new Scanner(System.in);
-    public static String options[] = { "1. MY CAMERA", "2. RENT A CAMERA", "3. VIEW ALL CAMERAS", "4. MY WALLET",
-            "5. EXIT" };
+    public static String options[] = { "1. MY CAMERA", "2. RENT A CAMERA", "3. VIEW ALL CAMERAS", "4. MY WALLET", "5. EXIT" };
     public static String subOptions[] = { "1. ADD", "2. REMOVE", "3. VIEW MY CAMERAS", "4. GO TO PREVIOUS MENU" };
 
     public static void printOptions(String arr[]) {
@@ -24,12 +23,7 @@ public class Main {
             switch (choice) {
                 case 1:
                     printOptions(subOptions);
-                    int subChoice = 0;
-                    try {
-                        subChoice = sc.nextInt();
-                    } catch (InputMismatchException e) {
-                        System.out.println("INVALID INPUT");
-                    }
+                    int subChoice = sc.nextInt();
                     switch (subChoice) {
                         case 1:
                             System.out.print("ENTER THE CAMERA BRAND - ");
@@ -68,8 +62,7 @@ public class Main {
                             run(user);
                             break;
                         case 3:
-                            CameraOperations obj = new CameraOperations();
-                            obj.displayAllCameras();
+                            co.displayAllCameras();
                             run(user);
                             break;
                         case 4:
@@ -82,21 +75,15 @@ public class Main {
                     }
                     break;
                 case 2:
-                    CameraOperations obj = new CameraOperations();
                     if (CameraOperations.cameraList.size() == 0) {
                         System.out.println("No data present at this moment.");
                     } 
                     else {
                         System.out.println("FOLLOWING IS THE LIST OF AVAILABLE CAMERAS");
-                        obj.displayAllCameras("Available");
+                        co.displayAllCameras("Available");
                         System.out.print("ENTER THE CAMERA ID YOU WANT TO RENT - ");
-                        int cameraId = 0;
-                        try {
-                            cameraId = sc.nextInt();
-                        } catch (InputMismatchException e) {
-                            System.out.println("INVALID INPUT.");
-                        }
-                        obj.RentCamera(user, cameraId);
+                        int cameraId = sc.nextInt();
+                        co.RentCamera(user, cameraId);
                     }
                     run(user);
                     break;
@@ -158,7 +145,8 @@ public class Main {
                 String password = sc.next();
                 if (!username.equals(user.getUsername()) || !password.equals(user.getPassword())) {
                     System.out.println("INCORRECT CREDENTIALS");
-                } else {
+                } 
+                else {
                     login = true;
                 }
             } catch (InputMismatchException e) {
