@@ -5,26 +5,28 @@ import java.util.Collections;
 public class CameraOperations {
     static ArrayList<Camera> cameraList = new ArrayList<Camera>();
     
-    public String addCamera(Camera cm) {
+    public void addCamera(Camera cm) {
         cameraList.add(cm);
         Collections.sort(cameraList);
-		return "YOUR CAMERA HAS BEEN SUCCESSFULLY ADDED TO THE LIST.";
+        System.out.println("YOUR CAMERA HAS BEEN SUCCESSFULLY ADDED TO THE LIST.");
 	}
 
-    public String removeCamera(int cameraId) {
+    public void removeCamera(int cameraId) {
         Camera camera = new Camera();
         try {
             int index = getCameraIndex(cameraList, 0,cameraList.size(), cameraId);
             camera = cameraList.get(index);
-            cameraList.remove(camera);
-            Collections.sort(cameraList);
             if(camera.getStatus().equals("Rented")) {
-                return "CAMERA CANNOT BE REMOVED AS IT IS RENTED.";
+                System.out.println("CAMERA CANNOT BE REMOVED AS IT IS RENTED.");
+            }
+            else {
+                cameraList.remove(camera);
+                Collections.sort(cameraList);
+                System.out.println("CAMERA SUCCESSFULLY REMOVED FROM THE LIST.");
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("INVALID CAMERA ID.");
         }
-        return "CAMERA SUCCESSFULLY REMOVED FROM THE LIST.";
 	}
     
     public int getCameraIndex(ArrayList<Camera> list, int low, int high, int cameraId) {

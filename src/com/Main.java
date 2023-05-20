@@ -52,19 +52,19 @@ public class Main {
                                     newCamera.setModel(model);
                                     newCamera.setRent(rent);
                                     newCamera.setStatus("Available");
-                                    String res = co.addCamera(newCamera);
-                                    System.out.println(res);
+                                    co.addCamera(newCamera);
                                 }
                             }
                             while(!validRent);
                             run(user);
                             break;
                         case 2:
-                            co.displayAllCameras();
-                            System.out.print("ENTER THE CAMERA ID TO REMOVE - ");
-                            int id = sc.nextInt();
-                            String msg = co.removeCamera(id);
-                            System.out.println(msg);
+                            co.displayAllCameras("Available");
+                            if(CameraOperations.cameraList.size() > 0) {
+                                System.out.print("ENTER THE CAMERA ID TO REMOVE - ");
+                                int id = sc.nextInt();
+                                co.removeCamera(id);
+                            }
                             run(user);
                             break;
                         case 3:
@@ -127,6 +127,7 @@ public class Main {
                     }
                     break;
                 case 5:
+                	System.out.println("Closing the application....\nThank you!");
                     break;
                 default:
                     System.out.println("INVALID CHOICE");
